@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - catch the Apple</title>
+    <style>
+        .playground {
+            position: relative;
+            background-color: green;
+            height: 500px;
+            width: 500px;
+            float: left;
+
+        }
+
+        .apple {
+            position: relative;
+            height: 60px;
+
+        }
+        .playground #gameStatus{
+            margin: 25%;
+            color: red;
+            font-size: 25px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="playground">
+        <img src="Apple.png" class="apple" id="apple" onclick="collectApple()">
+        <span id="gameStatus" ></span>
+    </div>
+    <div class="controls">
+        <h3>
+            <span>Total</span>
+            <span id="TotalCollect"></span><br>
+            
+        </h3>
+        <button onclick="startGame()">
+            start Game
+        </button>
+    </div>
+    <script>
+        let totalCollects=0;
+        let isGameStart=false;
+    
+        function startGame() {
+            totalCollects=0;
+            isGameStart=true;
+           
+            let apple = document.getElementById("apple")
+            let time = setInterval(() => {
+                let i = Math.floor(Math.random()*450) + 1;
+                let j = Math.floor(Math.random()*450) + 1;
+
+                apple.style.left = i + "px";
+                apple.style.top = j + "px";
+            }, 2000)
+            document.getElementById('gameStatus').innerText="Game Started"
+            setTimeout(()=>{
+                    document.getElementById('gameStatus').innerText=""
+                  
+            },1000)
+            setTimeout(()=>{
+                clearTimeout(time)
+                document.getElementById('gameStatus').innerText="Game Over"
+                isGameStart=false;
+                totalCollects=0;
+            },10000);
+        }
+        function collectApple(){
+            if(isGameStart){
+                totalCollects++;
+                document.getElementById('TotalCollect').innerText=totalCollects;
+            }
+        }
+    </script>
+</body>
+
+</html>
